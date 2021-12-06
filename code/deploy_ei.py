@@ -22,7 +22,7 @@ def model_fn(model_dir):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("================== objects in model_dir =====================")
     print(os.listdir(model_dir))
-    loaded_model = torch.jit.load(os.path.join(model_dir, "traced_bert.pt"))
+    loaded_model = torch.jit.load(os.path.join(model_dir, "pytorch_model.pt"))
     print("================== model loaded =============================")
     
     return loaded_model.to(device)
