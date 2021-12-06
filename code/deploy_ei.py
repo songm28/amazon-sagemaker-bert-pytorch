@@ -6,7 +6,7 @@ import sys
 import torch
 import torch.utils.data
 import torch.utils.data.distributed
-from transformers import BertTokenizer
+from transformers import BertTokenizer, BertForSequenceClassification
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -22,7 +22,8 @@ def model_fn(model_dir):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("================== objects in model_dir =====================")
     print(os.listdir(model_dir))
-    loaded_model = torch.jit.load(os.path.join(model_dir, "pytorch_model.pt"))
+#     loaded_model = torch.jit.load(os.path.join(model_dir, "pytorch_model.pt"))
+    loaded_model = BertForSequenceClassification.from_pretrained(model_dir)
     print("================== model loaded =============================")
     
     return loaded_model.to(device)
